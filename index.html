@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fare Matrix</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
   <style>
 
@@ -15,7 +15,7 @@
     }
 
     body{
-      background-image:url('https://i.pinimg.com/originals/fe/63/ae/fe63ae16020f4e852b818dc3d1452e26.gif');
+      background-image:url('https://i.pinimg.com/736x/36/4d/0b/364d0baf99820a0eb8baf90ff6617c77.jpg');
       background-repeat: no-repeat;
       background-size:cover;
     }
@@ -24,6 +24,7 @@
       color:black;
       font-family:"Jersey 25", sans-serif;
       background-color:rgba(255, 255, 255, 0.628);
+      box-shadow:10px 10px;
       
     }
 
@@ -45,14 +46,32 @@
       border-radius:50px;
       font-family: "Jersey 25", sans-serif;
       color:rgb(125, 60, 60);
+      box-shadow:10px 10px;
+      border:3px dashed white;
+     
     }
 
     #mainfare{
-      background-color:rgba(253, 250, 250, 0.74);
-       width:1000px;
-       height:500px;
-       border-radius:50px;
+       height:550px;
+        width:500px;
+        background-color:rgba(255, 255, 255, 0.799);
+        text-align:center;
+        padding:30px;
+        border-radius:50px;
+        margin-top:30px;
+        border:3px dashed white;
+        font-family: "Jersey 25", sans-serif;
+        color: rgb(0, 0, 0);
+        box-shadow:10px 10px;
 
+    }
+
+    #footer{
+    background-color:rgba(0, 0, 0, 0.534);
+    color:white;
+    text-align:center;
+    font-size:10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
   </style>
 
@@ -88,7 +107,6 @@
         </li>
       </ul>
 
-
     <div class="ms-auto">
       <a class="text-white me-3">Book Now</a>
       <button class="btn btn-primary nav-link nav-item" href="registration.html">Create Account</button>
@@ -100,7 +118,7 @@
 <br><br>
 <center>
 <div id="intro-box">
- <h1 style="font-size:60px;">Welcome to Ebyahe Mo!</h1> 
+ <h1 style="font-size:60px;">Welcome to Motomode!</h1> 
  <h2><u>Fare Matrix</u></h2>
 </div>
 </center>
@@ -109,57 +127,101 @@
 
 <center>
 <div id="mainfare">
-<h2>LRT Line 2</h2>
+<br>
+<h1 style="font-size:70px;">LRT Line 2</h1>
 
- <form action="#">
+ <form action="#" style="font-size:20px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; margin-left:20px;">
+  <hr>
+
         <label form="pickup">Pick-up location</label>
-        <input type="value" id="pickup" class="form-control" placeholder="Input your text" required>
-
         <br>
+        <select id="pickup">
+          <option value="none">Select</option>
+          <option value="1">Recto</option>
+          <option value="2">Legarda</option>
+          <option value="3">Pureza</option>
+          <option value="4">V.Mapa</option>
+          <option value="5">J.Ruiz</option>
+          <option value="6">Gilmore</option>
+          <option value="7">Betty Go-Belmonte</option>
+          <option value="8">Araneta Center-Cubao</option>
+          <option value="9">Anonas</option>
+          <option value="10">Katipunan</option>
+          <option value="11">Santolan</option>
+          <option value="12">Marikina-Pasig</option>
+          <option value="13">Antipolo</option>
+        </select>
+
+       <hr>
 
         <label form="dropoff">Drop-off location</label>
-        <input type="value" id="dropoff" class="form-control" placeholder="Input your text" required>
+        <br>
+        <select id="dropoff">
+          <option value="none">Select</option>
+          <option value="1">Recto</option>
+          <option value="2">Legarda</option>
+          <option value="3">Pureza</option>
+          <option value="4">V.Mapa</option>
+          <option value="5">J.Ruiz</option>
+          <option value="6">Gilmore</option>
+          <option value="7">Betty Go-Belmonte</option>
+          <option value="8">Araneta Center-Cubao</option>
+          <option value="9">Anonas</option>
+          <option value="10">Katipunan</option>
+          <option value="11">Santolan</option>
+          <option value="12">Marikina-Pasig</option>
+          <option value="13">Antipolo</option>
+        </select>
+      </form>
+<hr>
+  
+<label><input type="checkbox" id="disc">Apply 20% discount (Senior, Student, PWD)</label>
+<hr>
+<button type="Submit" onclick="calcfare()" class="btn btn-success">Calculate</button>
+<button type="button" onclick="window.location.reload()" class="btn btn-info">Refresh</button>
+<hr>
 
-        <button>Regular Fare</button>
-        <button type="submit" class=" btn btn-info" onmouseover="">Discounted Fare</button>
+<h1>Your Fare is: <span id="result"></span></h1>
 
-    </form>
+
+
 
 <script>
 
   function calcfare() {
-    let pickup, dropoff, basefare, baseKM, perKMrate, distance, extraKM, discount;
-      
-      pickup = parsefloat(document.getElementById("pickup").value);//convert string to number
-      dropoff = parseFloat(document.getElementById("dropoff").value); 
+
+    let basefare, baseKM, perKMrate, distance, extraKM, pickup, dropoff;
+
+    pickup = parseFloat(document.getElementById("pickup").value);
+    dropoff = parseFloat(document.getElementById("dropoff").value); 
 
       basefare = 50; //minimum fare which also include first 2KM
       perKMrate = 15; //cost per km beyond 2KM
       baseKM = 2; //distance inluded in the base fare
-      discount = document.getElementById("disc").checked; //when discount box is clicked, it's true and behaves like 1
+    
+    let discount = document.getElementById("disc").checked; 
 
-      //distance cant be negative, same station handled as 0 distance
+      distance = Math.max(Math.abs(dropoff - pickup),0);
+      extraKM = Math.max(distance - baseKM, 0);
 
-      distance = Math.max(Math.abs(dropoff - pickup),0); //selects first value, but if negative, selects 0; it also gets absolute when changing stations to avoid negative values
-
-      extraKM = Math.max(distance - baseKM, 0);// Calculates KM if it exceeds the base fare
-
-    //fare calculation
-
+    //fare
     let fare = basefare + extraKM * perKMrate; //regular rate
-
     //discount
-    fare = fare * (1 - 0.2 * discount); //if discount box is clicked, it's false, and it behaves like 0
+    fare = fare * (1 - 0.2 * discount); 
 
     //display
-    document.getElementById("Display").innerHTML = "Php" + fare.toFixed(2);
+   document.getElementById("result").innerHTML = "Php" + fare.toFixed(2);
 
   }
 
 </script>
     
-
 </div>
 </center>
+
+<br>
+<div id="footer" class="container-fluid">
+<p>© Almiron, Miranda | 9 - Emerald</p>
+</div>
 </body>
 </html>
